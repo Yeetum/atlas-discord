@@ -2,6 +2,11 @@ const Discord = require('discord.js');
 require('dotenv').config();
 const client = new Discord.Client();
 
+
+/**
+ * The ready event is vital, it means that only _after_ this will your bot start reacting to information
+ * received from Discord
+*/
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -10,6 +15,17 @@ client.on('message', msg => {
   if (msg.content === 'yeet') {
     msg.reply('counter-yeet');
   }
+});
+
+// If PAR on Object Storage permits pulling
+client.on('message', message => {
+    // If the message is '!rip'
+    if (message.content === '!signals') {
+      // Create the attachment using MessageAttachment
+      const attachment = new MessageAttachment('https://objectstorage.us-phoenix-1.oraclecloud.com/p/3VPOg9nO3fcgvNsVwztdq7tfvJbl2Nnp30KCD2T4y8bk3Wp5iLq_defZ9rjMQ8hB/n/ax8pmzkbraag/b/fum_reports/o/crypto.signals.2021-06-05.json');
+      // Send the attachment in the message channel
+      message.channel.send(attachment);
+    }
 });
 
 
