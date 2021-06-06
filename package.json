@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "name": "atlas-discord",
+  "description": "\"# atlas-discord\"",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "test": "node bot.js",
+    "dev": "nodemon bot.js",
+    "start": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yeetum/atlas-discord.git"
+  },
+  "keywords": [
+    "atlas",
+    "yeetum",
+    "discord",
+    "synergy"
+  ],
+  "author": "Yeetum Engineering",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yeetum/atlas-discord/issues"
+  },
+  "homepage": "https://github.com/Yeetum/atlas-discord#readme"
+}
