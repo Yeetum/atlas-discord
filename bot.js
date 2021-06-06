@@ -1,6 +1,10 @@
 const Discord = require('discord.js');
 require('dotenv').config();
 const client = new Discord.Client();
+const fs = require('fs');
+const http = require('https');
+// Set command prefix for additional capabilities
+const PREFIX = '?yeet';
 
 
 /**
@@ -11,10 +15,27 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
-  if (msg.content === 'yeet') {
-    msg.reply('counter-yeet');
-  }
+
+client.on('message', message => {
+
+    // Always yeet... just cause
+    if (message.content === 'yeet') {
+        message.reply('counter-yeet');
+    }
+
+	client.on('message', message => {
+        if (message.content === `${PREFIX} crypto`) {
+            //const obj = http.get('https://objectstorage.us-phoenix-1.oraclecloud.com/p/3VPOg9nO3fcgvNsVwztdq7tfvJbl2Nnp30KCD2T4y8bk3Wp5iLq_defZ9rjMQ8hB/n/ax8pmzkbraag/b/fum_reports/o/crypto.signals.2021-06-05.json');
+            //message.channel.send(obj);
+            message.channel.send('Crypto Signals Automation being developed');
+        } else if (message.content === `${PREFIX} stocks`) {
+            message.channel.send('Stock Signals Automation Dev');
+        } else if (message.content === `${PREFIX} server`) {
+            message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
+        } else if (message.content === `${PREFIX} user`) {
+            message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
+        }
+    });
 });
 
 // If PAR on Object Storage permits pulling
@@ -23,6 +44,7 @@ client.on('message', message => {
     if (message.content === '!signals') {
       // Create the attachment using MessageAttachment
       const attachment = new MessageAttachment('https://objectstorage.us-phoenix-1.oraclecloud.com/p/3VPOg9nO3fcgvNsVwztdq7tfvJbl2Nnp30KCD2T4y8bk3Wp5iLq_defZ9rjMQ8hB/n/ax8pmzkbraag/b/fum_reports/o/crypto.signals.2021-06-05.json');
+      const finalAttached = attachment.
       // Send the attachment in the message channel
       message.channel.send(attachment);
     }
