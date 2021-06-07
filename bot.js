@@ -2,21 +2,23 @@
  * This bot is designed for the Synergy by Yeetum Discord community. Built and managed by Yeetum Technologies.
  * 
 */
+
+// Import modules & libraries
 const Discord = require('discord.js');
 require('dotenv').config();
-const fs = require('fs');
 const ociOS = require("oci-objectstorage");
+const oci = require('oci-sdk');
 const common = require("oci-common");
-const path = require('path');
+
 // Set command prefix for additional capabilities
 const PREFIX = '?yeet';
-const discordClient = new Discord.Client();
 
 /**
  * Discord init w/ ATLAS bot
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
  * received from Discord
 */
+const discordClient = new Discord.Client();
 discordClient.on('ready', () => {
     console.log(`Logged in as ${discordClient.user.tag}!`);
   });
@@ -25,7 +27,6 @@ discordClient.on('ready', () => {
 * Note: there is a 2GB for 64-bit machine and 1GB for 32-bit machine buffer limitation from the NodeJS V8 Engine
 * Cannot upload file size greater than the limit
 */
-
 // Init OCI Object Storage Client
 // Using personal configuration
 const provider = new common.ConfigFileAuthenticationDetailsProvider();
@@ -56,12 +57,20 @@ const ociClient = new ociOS.ObjectStorageClient({
         const getObjectRequest = {
             objectName: objectName,
             bucketName: bucketName,
-            namespaceName: namespace
+            namespaceName: namespace,
+            httpResponseContentEncoding: null
         };
 
         const getObjectResponse = await ociClient.getObject(getObjectRequest);
-        console.log("Get Object executed successfully.");
-        console.log("Object Data:", getObjectResponse.value);
+        console.log("Get Object executed...");
+        console.log("Object Data:", getObjectResponse);
+
+        console.log("Swifting through getObjectResponse...");
+        console.log(getObjectResponse);
+
+        // TODO: Parse Object Storage Response for signals
+        console.log("Deserializing Object Response...");
+        console.log(getObjectResponse.value);
 
     } catch (e) {
         console.log("Error:", e);
@@ -91,40 +100,9 @@ discordClient.on('message', message => {
     }
 });
 
-// If PAR on Object Storage permits pulling
-discordClient.on('message', message => {
-    // If the message is '!rip'
-    if (message.content === '!signals') {
-      // Create the attachment using MessageAttachment
-      const attachment = new MessageAttachment('https://objectstorage.us-phoenix-1.oraclecloud.com/p/3VPOg9nO3fcgvNsVwztdq7tfvJbl2Nnp30KCD2T4y8bk3Wp5iLq_defZ9rjMQ8hB/n/ax8pmzkbraag/b/fum_reports/o/crypto.signals.2021-06-05.json');
-      const finalAttached = attachment.
-      // Send the attachment in the message channel
-      message.channel.send(attachment);
-    }
-});
-
-
-// If report is local to discord host
-discordClient.on('message', message => {
-    // If the message is '!memes'
-    if (message.content === '!memes') {
-      // Get the buffer from the 'memes.txt', assuming that the file exists
-      const buffer = fs.readFileSync('./crypto.TIMESTAMP.csv');
-  
-      /**
-       * Create the attachment using MessageAttachment,
-       * overwritting the default file name to 'memes.txt'
-       * Read more about it over at
-       * http://discord.js.org/#/docs/main/master/class/MessageAttachment
-       */
-      const attachment = new MessageAttachment(buffer, 'crypto.TIMESTAMP.csv');
-      // Send the attachment in the message channel with a content
-      message.channel.send(`${message.author}, here are your memes!`, attachment);
-    }
-});
-
+//TODO Webhook n8n and fdk integration/automation
 // webhook configured to #crypto-signals-report for YIG Atlantis Club
-const hook = new Discord.WebhookClient('843674945011318826', '-Ee7ddMeHX8MvZopsvxuZByW-6tO51VcqQTPC3keVMD3X5X97y8T7L6c82HNW0B6nVZe');
+//const hook = new Discord.WebhookClient('843674945011318826', '-Ee7ddMeHX8MvZopsvxuZByW-6tO51VcqQTPC3keVMD3X5X97y8T7L6c82HNW0B6nVZe');
 //https://discord.com/api/webhooks/843674945011318826/-Ee7ddMeHX8MvZopsvxuZByW-6tO51VcqQTPC3keVMD3X5X97y8T7L6c82HNW0B6nVZe
 
 // Send a report to webhook
