@@ -6,12 +6,8 @@
 // Import modules & libraries
 const Discord = require('discord.js');
 require('dotenv').config();
-const config = require('./config');
-const embeds = require('./embeds');
-const schedule = require('node-schedule');
-
-// Set command prefix for additional capabilities
-const PREFIX = '?yeet';
+const commands = require('./controllers/commands');
+const atlantisScheduler = require('./controllers/atlantis-scheduler');
 
 
 /**
@@ -20,38 +16,8 @@ const PREFIX = '?yeet';
  * received from Discord
 */
 const discordClient = new Discord.Client();
-discordClient.on('ready', () => {
-    console.log(`Logged in as ${discordClient.user.tag}!`);
-});
-
-// Always respond to yeet... just cause
-discordClient.on('message', message => {
-
-    if (message.content === 'yeet') {
-        message.reply('counter-yeet');
-    }
-});
-
-discordClient.on('message', message => {
-    if (message.content === `${PREFIX} crypto`) {
-        message.channel.send(embeds.cryptoSignalEmbed);
-        message.channel.send(embeds.cryptoAttachment);
-        message.channel.send("**Thank you for using ATLAS and YIG Services**");
-        console.log(`Crypto Report triggred by ${message.author.username}...`);
-    } else if (message.content === `${PREFIX} stocks`) {
-        message.channel.send(embeds.stockSignalEmbed);
-        message.channel.send(embeds.stockReportAttachment);
-        message.channel.send("**Thank you for using ATLAS and YIG Services**");
-        console.log(`Stock Report triggred by ${message.author.username}...`);
-    } else if (message.content === `${PREFIX} server`) {
-        message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
-    } else if (message.content === `${PREFIX} user`) {
-        message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-    } else if (message.content === `${PREFIX} help`) {
-        message.channel.send(`Hi ${message.author.username},\nUseful ATLAS commands are: ?yeet crypto, ?yeet stocks`);
-        console.log(`Help triggred by ${message.author.username}...`);
-    }
-});
+commands(discordClient);
+atlantisScheduler(discordClient);
 
 //TODO Webhook n8n and fdk integration/automation
 // webhook configured to #crypto-signals-report for YIG Atlantis Club
@@ -63,14 +29,3 @@ discordClient.on('message', message => {
 //hook.send('ATLAS n8n webhook');
 
 discordClient.login(process.env.BOT_TOKEN);
-const rule = new schedule.RecurrenceRule();
-rule.hour = 016;
-rule.tz = 'Etc/UTC';
-
-schedule.scheduleJob(rule, function(){
-    discordClient.on('ready', client => {
-        client.channels.get('840265345214578708').send(embeds.cryptoSignalEmbed);
-        client.channels.get('850086242926198794').send(embeds.stockSignalEmbed);
-    })
-    console.log('node-schdedue job executed for Synergy integration');
-});
