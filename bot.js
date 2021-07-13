@@ -22,9 +22,6 @@ atlantisScheduler(discordClient);
 //TODO Webhook n8n and fdk integration/automation
 // webhook configured to #crypto-signals-report for YIG Atlantis Club
 
-//const hook = new Discord.WebhookClient('843674945011318826', '-Ee7ddMeHX8MvZopsvxuZByW-6tO51VcqQTPC3keVMD3X5X97y8T7L6c82HNW0B6nVZe');
-//https://discord.com/api/webhooks/843674945011318826/-Ee7ddMeHX8MvZopsvxuZByW-6tO51VcqQTPC3keVMD3X5X97y8T7L6c82HNW0B6nVZe
-
 // Send a report to webhook
 //hook.send('ATLAS n8n webhook');
 
