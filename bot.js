@@ -38,7 +38,9 @@ discordClient.on('message', message => {
         message.channel.send(embeds.cryptoAttachment);
         message.channel.send("**Thank you for using ATLAS and YIG Services**");
     } else if (message.content === `${PREFIX} stocks`) {
-        message.channel.send('Stock Signals Automation Dev');
+        message.channel.send(embeds.stockSignalEmbed);
+        //message.channel.send(embeds.cryptoAttachment); add stock report attachments
+        message.channel.send("**Thank you for using ATLAS and YIG Services**");
     } else if (message.content === `${PREFIX} server`) {
         message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
     } else if (message.content === `${PREFIX} user`) {
@@ -61,8 +63,9 @@ rule.hour = 016;
 rule.tz = 'Etc/UTC';
 
 schedule.scheduleJob(rule, function(){
-    Discord.on('ready', client => {
+    discordClient.on('ready', client => {
         client.channels.get('840265345214578708').send(embeds.cryptoSignalEmbed);
+        client.channels.get('850086242926198794').send(embeds.stockSignalEmbed);
     })
-    console.log('node-schdedue job for crypto-signals');
+    console.log('node-schdedue job executed for Synergy integration');
 });

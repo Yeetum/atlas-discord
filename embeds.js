@@ -7,7 +7,7 @@ const disclaimer = 'Yeetum Investment Group cannot warranty the expressions and 
 const REPORTFILE = 'crypto.signals.2021-07-12.json';
 const reportURI = config.bucketReportURI + REPORTFILE;
 
-const attachment = new Discord.MessageAttachment(reportURI);
+const cryptoAttachment = new Discord.MessageAttachment(reportURI);
 const cryptoSignalEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('YIG Atlantis Club Services')
@@ -17,6 +17,8 @@ const cryptoSignalEmbed = new Discord.MessageEmbed()
     .setTimestamp()
     .setFooter('Disclaimer: ' + disclaimer, aiPng);
 
+
+const stockReportAttachment = new Discord.MessageAttachment()
 const stockSignalEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('YIG Atlantis Club Services')
