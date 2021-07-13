@@ -9,6 +9,7 @@ require('dotenv').config();
 const ociOS = require("oci-objectstorage");
 const oci = require('oci-sdk');
 const common = require("oci-common");
+const config = require('./config');
 
 // Set command prefix for additional capabilities
 const PREFIX = '?yeet';
@@ -21,7 +22,9 @@ const PREFIX = '?yeet';
 const discordClient = new Discord.Client();
 discordClient.on('ready', () => {
     console.log(`Logged in as ${discordClient.user.tag}!`);
-  });
+});
+
+
 
 /*
 * Note: there is a 2GB for 64-bit machine and 1GB for 32-bit machine buffer limitation from the NodeJS V8 Engine
@@ -34,8 +37,9 @@ const ociClient = new ociOS.ObjectStorageClient({
     authenticationDetailsProvider: provider
 });
 
-(async () => {
+/* (async () => {
     try {
+
         console.log("Getting OCI OS Namespace...");
         const request = {};
         const nsResponse = await ociClient.getNamespace(request);
@@ -48,13 +52,13 @@ const ociClient = new ociOS.ObjectStorageClient({
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         let yyyy = today.getFullYear();
-        today = yyyy + '-' + mm + '-' + '06';
-        console.log('Date time:', today);
+        let todaydate = yyyy + '-' + mm + '-' + '08';
+        console.log('Date time:', todaydate);
 
         const objectName = 'crypto.signals.' + today + '.json';
         console.log('Object Name:', objectName);
 
-        const getObjectRequest = {
+        const getObjectRequest = ociOS.requests.GetObjectRequest = {
             objectName: objectName,
             bucketName: bucketName,
             namespaceName: namespace,
@@ -63,19 +67,32 @@ const ociClient = new ociOS.ObjectStorageClient({
 
         const getObjectResponse = await ociClient.getObject(getObjectRequest);
         console.log("Get Object executed...");
-        console.log("Object Data:", getObjectResponse);
-
-        console.log("Swifting through getObjectResponse...");
         console.log(getObjectResponse);
+        console.log(getObjectResponse.data);
+        console.log("Object Data:", JSON.stringify(getObjectResponse.value, 'utf8'));
+
+        //console.log("Swifting through getObjectResponse...");
+        //console.log(getObjectResponse);
 
         // TODO: Parse Object Storage Response for signals
-        console.log("Deserializing Object Response...");
-        console.log(getObjectResponse.value);
+        //console.log("Deserializing Object Response...");
+        //console.log(getObjectResponse.value);
+
 
     } catch (e) {
         console.log("Error:", e);
     }
 })();
+
+function streamToString(stream) {
+    let output = "";
+    stream.on("data", function (data) {
+        output += data.toString();
+    });
+    stream.on("end", function () {
+        return output;
+    });
+} */
 
 
 // Always respond to yeet... just cause
@@ -86,11 +103,34 @@ discordClient.on('message', message => {
     }
 });
 
+// Init path to csv files 
+const aiPng = config.aiPngURI;
+const yeetumPNG = config.yeetumWhiteURI;
+const REPORTFILE = 'crypto.signals.2021-07-12.json'
+const reportURI = config.bucketReportURI + REPORTFILE;
+const disclaimer_html = '***Yeetum Investment Group cannot warranty the expressions and suggestions of the contents, as well as its accuracy. In addition, to the extent permitted by the law, Yeetum Investment Group shall not be responsible for any losses and/or damages due to the usage of the information on our website.\nBy using our services, you hereby consent to our disclaimer and agree to its terms. The links contained on our website may lead to external sites, which are provided for convenience only.\nAny information or statements that appeared in these sites are not sponsored, endorsed, or otherwise approved by Yeetum Investment Group. For these external sites, Yeetum Investment Group cannot be held liable for the availability of, or the content located on or through it.  Plus, any losses or damages occurred from using these contents or the internet generally.***'
+
+/* prep filepath to oci os
+function prepFilePath(reportBucketUri){
+
+}*/
 discordClient.on('message', message => {
     if (message.content === `${PREFIX} crypto`) {
-        //const obj = http.get('https://objectstorage.us-phoenix-1.oraclecloud.com/p/3VPOg9nO3fcgvNsVwztdq7tfvJbl2Nnp30KCD2T4y8bk3Wp5iLq_defZ9rjMQ8hB/n/ax8pmzkbraag/b/fum_reports/o/crypto.signals.2021-06-05.json');
-        //message.channel.send(obj);
-        message.channel.send('Crypto Signals Automation being developed');
+        const attachment = new Discord.MessageAttachment(reportURI);
+        const cryptoSignalEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('YIG Atlantis Club Services')
+            .setURL('https://www.yeetum.com')
+            .setDescription('YIG FUMaaS Cryptos Signal Report')
+            .setThumbnail(yeetumPNG)
+            .addFields(
+                { name: 'Disclaimer:', value: disclaimer_html }
+            )
+            .setTimestamp()
+            .setFooter('Disclaimer: This is not financial advice. These signals are for analytical purposes only.', aiPng);
+        message.channel.send(cryptoSignalEmbed);
+        message.channel.send(attachment);
+        message.channel.send('***Thank you for using ATLAS...***');
     } else if (message.content === `${PREFIX} stocks`) {
         message.channel.send('Stock Signals Automation Dev');
     } else if (message.content === `${PREFIX} server`) {
