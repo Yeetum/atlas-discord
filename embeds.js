@@ -18,7 +18,7 @@ const cryptoSignalEmbed = new Discord.MessageEmbed()
     .setFooter('Disclaimer: ' + disclaimer, aiPng);
 
 
-const stockReportAttachment = new Discord.MessageAttachment()
+const stockReportAttachment = 'Object STorage Bucket PAR + /o/ Stock Object Attachment';
 const stockSignalEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('YIG Atlantis Club Services')
@@ -32,5 +32,6 @@ const stockSignalEmbed = new Discord.MessageEmbed()
 module.exports = {
     cryptoAttachment: cryptoAttachment,
     cryptoSignalEmbed: cryptoSignalEmbed,
-    stockSignalEmbed: stockSignalEmbed
+    stockSignalEmbed: stockSignalEmbed,
+    stockReportAttachment: stockReportAttachment
 }

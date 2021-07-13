@@ -39,7 +39,7 @@ discordClient.on('message', message => {
         message.channel.send("**Thank you for using ATLAS and YIG Services**");
     } else if (message.content === `${PREFIX} stocks`) {
         message.channel.send(embeds.stockSignalEmbed);
-        //message.channel.send(embeds.cryptoAttachment); add stock report attachments
+        message.channel.send(embeds.stockReportAttachment);
         message.channel.send("**Thank you for using ATLAS and YIG Services**");
     } else if (message.content === `${PREFIX} server`) {
         message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
