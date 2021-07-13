@@ -30,7 +30,7 @@ const stockSignalEmbed = new Discord.MessageEmbed()
 
 
 module.exports = {
-    cryptoAttachment: attachment,
+    cryptoAttachment: cryptoAttachment,
     cryptoSignalEmbed: cryptoSignalEmbed,
     stockSignalEmbed: stockSignalEmbed
 }
