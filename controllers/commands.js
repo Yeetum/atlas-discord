@@ -23,19 +23,17 @@ module.exports = discordClient =>{
         if (message.content === `${PREFIX} crypto`) {
             message.channel.send(embeds.cryptoSignalEmbed);
             message.channel.send(new Discord.MessageAttachment(attachmentURI));
-            message.channel.send("**Thank you for using ATLAS and YIG Services**");
             console.log(`Crypto Report triggred by ${message.author.username}...`);
         } else if (message.content === `${PREFIX} stocks`) {
             message.channel.send(embeds.stockSignalEmbed);
             //message.channel.send(embeds.stockReportAttachment);
-            message.channel.send("**Thank you for using ATLAS and YIG Services**");
             console.log(`Stock Report triggred by ${message.author.username}...`);
         } else if (message.content === `${PREFIX} server`) {
             message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
         } else if (message.content === `${PREFIX} user`) {
             message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
         } else if (message.content === `${PREFIX} help`) {
-            message.channel.send(`Hi ${message.author.username},\nUseful ATLAS commands are: ?yeet crypto, ?yeet stocks`);
+            message.channel.send(embeds.helpEmbed);
             console.log(`Help triggred by ${message.author.username}...`);
         }
     }); 
