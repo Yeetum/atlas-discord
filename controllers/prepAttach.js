@@ -1,13 +1,8 @@
 const Discord = require('discord.js');
 
 // TODO: Prep file name string
-const prepReport = function prepReportName(Date, ReportType, reportURI){
+export function prepReportName(Date, ReportType, bucketURI){
     let fileName = '';
     return fileName;
 
-}
-
-
-module.export = {
-    prepReportName: prepReport
 }
