@@ -5,4 +5,4 @@ COPY package.json ./
 # replace this with your application's default port
 RUN npm install
 
-CMD [ "node", "bot.js" ]
+CMD [ "npm", "start" ]

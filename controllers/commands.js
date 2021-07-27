@@ -1,11 +1,10 @@
 const Discord = require('discord.js');
 const embeds = require('./embeds');
+const prepAttach = require('./prepAttach');
 
 module.exports = discordClient =>{
     // Set command prefix for additional capabilities
-    const PREFIX = '?yeet';
-    const REPORTFILE = 'crypto.signals.2021-07-12.json';
-    const attachmentURI = process.env.bucketReportURI + REPORTFILE;
+    const PREFIX = '?atlas';
 
     discordClient.on('ready', () => {
         console.log(`Logged in as ${discordClient.user.tag}!`);
@@ -19,14 +18,18 @@ module.exports = discordClient =>{
         }
     });
 
+    //  report types ['crypto','stocks'] pass one of the string values to prepAttach param 2
     discordClient.on('message', message => {
         if (message.content === `${PREFIX} crypto`) {
             message.channel.send(embeds.cryptoSignalEmbed);
+            let attachmentURI = prepAttach.prepReportName('crypto');
+            console.log('Crypto Report URI', attachmentURI);
             message.channel.send(new Discord.MessageAttachment(attachmentURI));
             console.log(`Crypto Report triggred by ${message.author.username}...`);
         } else if (message.content === `${PREFIX} stocks`) {
             message.channel.send(embeds.stockSignalEmbed);
-            //message.channel.send(embeds.stockReportAttachment);
+            let attachmentURI = prepAttach.prepReportName('stocks');
+            message.channel.send(new Discord.MessageAttachment(attachmentURI));
             console.log(`Stock Report triggred by ${message.author.username}...`);
         } else if (message.content === `${PREFIX} server`) {
             message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
