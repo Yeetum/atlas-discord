@@ -6,8 +6,8 @@ const prepAttach = require('./prepAttach');
 module.exports = discordClient => {
     const rule = new schedule.RecurrenceRule();
     console.log("atlantis-scheduler activated");
-    rule.hour = 13;
-    rule.minute = 25;
+    rule.hour = 17;
+    rule.minute = 0;
 
 
     let atlantisClubJob = schedule.scheduleJob(rule, function(){
