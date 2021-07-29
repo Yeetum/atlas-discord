@@ -20,7 +20,8 @@
   "scripts": {
     "test": "node bot.js",
     "dev": "nodemon bot.js",
-    "start": "pm2 start bot.js"
+    "start": "pm2 start bot.js",
+    "stop": "pm2 kill"
   },
   "repository": {
     "type": "git",
