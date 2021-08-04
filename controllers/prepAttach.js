@@ -50,14 +50,14 @@ function prepReportName(ReportType){
             let attachmentURI = buckets.fum_Reports + REPORTFILE;
             return attachmentURI;
         } else if (ReportType == 'stocks'){
-            let REPORTFILE = 'stocks.signals.'+ reportdate + '.json';
+            let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
             console.log("Returning stock report file for", reportdate);
             let attachmentURI = buckets.fum_Reports  + REPORTFILE;
             return attachmentURI;
         }
     } else {
         // prints date in YYYY-MM-DD format
-        let newDate = date - 1;
+        let newDate = ("0" + (date_ob.getDate()-1)).slice(-2);
         let reportdate = year + "-" + month + "-" + newDate;
         if (ReportType == 'crypto') {
             let REPORTFILE = 'crypto.signals.'+ reportdate + '.json';
@@ -65,7 +65,7 @@ function prepReportName(ReportType){
             let attachmentURI = buckets.fum_Reports  + REPORTFILE;
             return attachmentURI;
         } else if (ReportType == 'stocks'){
-            let REPORTFILE = 'stocks.signals.'+ reportdate + '.json';
+            let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
             console.log("Returning stock report file for", reportdate);
             let attachmentURI = buckets.fum_Reports  + REPORTFILE;
             return attachmentURI;
