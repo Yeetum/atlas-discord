@@ -8,6 +8,7 @@ const common = require("oci-common");
 */
 // Init OCI Object Storage Client
 // Using personal configuration
+/*
 const provider = new common.ConfigFileAuthenticationDetailsProvider();
 const ociClient = new ociOS.ObjectStorageClient({
     authenticationDetailsProvider: provider
