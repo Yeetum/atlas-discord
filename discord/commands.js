@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const embeds = require('./embeds');
-const prepAttach = require('./prepAttach');
+const prepAttach = require('../controllers/prepAttach');
 
 module.exports = discordClient =>{
     // Set command prefix for additional capabilities

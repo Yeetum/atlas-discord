@@ -6,7 +6,7 @@
 // Import modules & libraries
 const Discord = require('discord.js');
 require('dotenv').config();
-const commands = require('./controllers/commands');
+const commands = require('./discord/commands');
 const atlantisScheduler = require('./controllers/atlantis-scheduler');
 
 

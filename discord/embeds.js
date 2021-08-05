@@ -1,7 +1,7 @@
 const config = require('../config');
 const Discord = require('discord.js');
 require('dotenv').config();
-const prepReport = require('./prepAttach');
+const prepReport = require('../controllers/prepAttach');
 
 const aiPng = process.env.aiPngURI || config.aiPngURI;
 const yeetumPNG = process.env.yeetumWhiteURI || config.yeetumWhiteURI;

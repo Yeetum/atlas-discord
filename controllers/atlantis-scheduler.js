@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const embeds = require('./embeds');
+const embeds = require('../discord/embeds');
 const schedule = require('node-schedule');
 const prepAttach = require('./prepAttach');
 
