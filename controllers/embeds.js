@@ -71,6 +71,17 @@ const stockDailyReportEmbed = new Discord.MessageEmbed()
     .setFooter(footer, footerImage)
     .setImage(aiPng);
 
+const atlantisClubEmbed = new Discord.MessageEmbed()
+.setColor('#0099ff')
+.setTitle('Join the Atlantis Club')
+.setURL('https://buy.stripe.com/8wM5mC2Ki1r84486op')
+.setDescription('^^^ Click Join the Atlantis Club above ^^^')
+.setThumbnail(yeetumPNG)
+.addField("Disclaimer:", disclaimer)
+.setTimestamp(new Date())
+.setFooter(footer, footerImage)
+.setImage(aiPng);
+
 const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('ATLAS x Synergy Discord Help')
@@ -94,5 +105,6 @@ module.exports = {
     sectorReportEmbed: sectorReportEmbed,
     cryptoDailyEmbed: cryptoDailyEmbed,
     stockDailyReportEmbed: stockDailyReportEmbed,
+    atlantisClubEmbed: atlantisClubEmbed,
     helpEmbed: helpEmbed
 }
