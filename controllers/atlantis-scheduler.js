@@ -10,8 +10,9 @@ module.exports = discordClient => {
     const stockRule = new schedule.RecurrenceRule();
     
     // define time UTC
-    cryptoRule.hour = 22;
-    stockRule.hour = 
+    cryptoRule.hour = 17;
+    stockRule.hour = 0;
+    stockRule.minute = 25;
 
     console.log("atlas-scheduler activated...");
 
