@@ -15,64 +15,112 @@ const common = require("oci-common");
 // });
 
 
-const reportTypes = ['crypto','stocks'];
+const reportTypes = [['crypto'],['stocks', 'sectors']];
 
-// TODO: Prep file name string
-function prepReportName(ReportType){
+const buckets = {
+    "fum_Reports": process.env.bucketReportURI
+}
 
-    const buckets = {
-        "fum_Reports": process.env.bucketReportURI
+function prepCryptoReportName(ReportType){
+    try {
+        let date_ob = new Date();
+        console.log("Full date of crypto report prep", date_ob)
+
+        // current date
+        // adjust 0 before single digit date
+        let date = ("0" + date_ob.getDate()).slice(-2);
+
+        // current month
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+        // current year
+        let year = date_ob.getFullYear();
+
+        // current hours
+        let hours = date_ob.getHours();
+        console.log("crypto prep report triggered at:", hours);
+
+        if (hours >= 22) {
+            // prints date in YYYY-MM-DD format
+            let reportdate = year + "-" + month + "-" + date;
+            if (ReportType == 'crypto') {
+                let REPORTFILE = 'fumcrypto.'+ reportdate + '.txt';
+                console.log("Returning crypto report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports + REPORTFILE;
+                return attachmentURI;
+            }
+        } else {
+            // prints date in YYYY-MM-DD format - 1 day to data delay
+            let newDate = ("0" + (date_ob.getDate()-1)).slice(-2);
+            let reportdate = year + "-" + month + "-" + newDate;
+            if (ReportType == 'crypto') {
+                let REPORTFILE = 'fumcrypto.'+ reportdate + '.txt';
+                console.log("Returning crypto report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports  + REPORTFILE;
+                return attachmentURI;
+            } 
+        }
+    } catch (e){
+        console.log("crypto prep report error:", e)
     }
     
-    let date_ob = new Date();
-    console.log("Full date of report prep", date_ob)
+}
+function prepStockReportName(ReportType){
+    
+    try{
+        let date_ob = new Date();
+        console.log("Full date of stocks report prep", date_ob)
 
-    // current date
-    // adjust 0 before single digit date
-    let date = ("0" + date_ob.getDate()).slice(-2);
+        // current date
+        // adjust 0 before single digit date
+        let date = ("0" + date_ob.getDate()).slice(-2);
 
-    // current month
-    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+        // current month
+        let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 
-    // current year
-    let year = date_ob.getFullYear();
+        // current year
+        let year = date_ob.getFullYear();
 
-    // current hours
-    let hours = date_ob.getHours();
-    console.log("Prep report triggered at:", hours);
+        // current hours
+        let hours = date_ob.getHours();
+        console.log("stock prep report triggered at:", hours);
 
-    if (hours >= 17) {
-        // prints date in YYYY-MM-DD format
-        let reportdate = year + "-" + month + "-" + date;
-        if (ReportType == 'crypto') {
-            let REPORTFILE = 'crypto.signals.'+ reportdate + '.json';
-            console.log("Returning crypto report file for", reportdate);
-            let attachmentURI = buckets.fum_Reports + REPORTFILE;
-            return attachmentURI;
-        } else if (ReportType == 'stocks'){
-            let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
-            console.log("Returning stock report file for", reportdate);
-            let attachmentURI = buckets.fum_Reports  + REPORTFILE;
-            return attachmentURI;
+        if (hours >= 24) {
+            // prints date in YYYY-MM-DD format
+            let reportdate = year + "-" + month + "-" + date;
+            if (ReportType == 'stocks'){
+                let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
+                console.log("Returning stock report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports  + REPORTFILE;
+                return attachmentURI;
+            } else if (ReportType == 'sectors') {
+                let REPORTFILE = 'sector-strength-stocks.'+ reportdate + '.csv';
+                console.log("Returning stock report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports  + REPORTFILE;
+                return attachmentURI;
+            }
+        } else {
+            // prints date in YYYY-MM-DD format
+            let newDate = ("0" + (date_ob.getDate()-1)).slice(-2);
+            let reportdate = year + "-" + month + "-" + newDate;
+            if (ReportType == 'stocks') {
+                let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
+                console.log("Returning stock report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports  + REPORTFILE;
+                return attachmentURI;
+            } else if (ReportType == 'sectors') {
+                let REPORTFILE = 'sector-strength-stocks.'+ reportdate + '.csv';
+                console.log("Returning stock report file for", reportdate);
+                let attachmentURI = buckets.fum_Reports  + REPORTFILE;
+                return attachmentURI;
+            }
         }
-    } else {
-        // prints date in YYYY-MM-DD format
-        let newDate = ("0" + (date_ob.getDate()-1)).slice(-2);
-        let reportdate = year + "-" + month + "-" + newDate;
-        if (ReportType == 'crypto') {
-            let REPORTFILE = 'crypto.signals.'+ reportdate + '.json';
-            console.log("Returning crypto report file for", reportdate);
-            let attachmentURI = buckets.fum_Reports  + REPORTFILE;
-            return attachmentURI;
-        } else if (ReportType == 'stocks'){
-            let REPORTFILE = 'stocks.'+ reportdate + '.signals' + '.csv';
-            console.log("Returning stock report file for", reportdate);
-            let attachmentURI = buckets.fum_Reports  + REPORTFILE;
-            return attachmentURI;
-        }
+    } catch (e){
+        console.log("stock prep report error:", e)
     }
 }
 
 module.exports = {
-    prepReportName: prepReportName
+    prepCryptoReportName: prepCryptoReportName,
+    prepStockReportName: prepStockReportName
 }

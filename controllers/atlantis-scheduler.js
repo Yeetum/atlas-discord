@@ -4,25 +4,41 @@ const schedule = require('node-schedule');
 const prepAttach = require('./prepAttach');
 
 module.exports = discordClient => {
-    const rule = new schedule.RecurrenceRule();
-    console.log("atlantis-scheduler activated");
-    rule.hour = 17;
-    rule.minute = 0;
 
+    //init reoccuring rules
+    const cryptoRule = new schedule.RecurrenceRule();
+    const stockRule = new schedule.RecurrenceRule();
+    
+    // define time UTC
+    cryptoRule.hour = 22;
+    stockRule.hour = 
 
-    let atlantisClubJob = schedule.scheduleJob(rule, function(){
+    console.log("atlas-scheduler activated...");
+
+    let atlantisClubCryptoJob = schedule.scheduleJob(cryptoRule, function(){
         try{
-            discordClient.channels.cache.get('840265345214578708').send(embeds.cryptoSignalEmbed);
-            let cryptoAttachmentURI = prepAttach.prepReportName('crypto');
+            let cryptoAttachmentURI = prepAttach.prepCryptoReportName('crypto');
+            discordClient.channels.cache.get('840265345214578708').send(embeds.cryptoDailyEmbed);
             discordClient.channels.cache.get('840265345214578708').send(new Discord.MessageAttachment(cryptoAttachmentURI));
-            
-            let stockAttachmentURI = prepAttach.prepReportName('stocks');
-            discordClient.channels.cache.get('850086242926198794').send(embeds.stockSignalEmbed);
-            discordClient.channels.cache.get('850086242926198794').send(new Discord.MessageAttachment(stockAttachmentURI));
+            console.log("crypto job successful...");
         } 
         catch (e) {
-            console.log("Error:", e);
+            console.log("Error crypto scheduler:", e);
         }
     });
-    atlantisClubJob;
+    atlantisClubCryptoJob;
+    let atlantisClubStockJob = schedule.scheduleJob(stockRule, function(){
+        try {
+            let stockAttachmentURI = prepAttach.prepStockReportName('stocks');
+            let sectorAttachmentURI = prepAttach.prepStockReportName('sectors');
+            discordClient.channels.cache.get('850086242926198794').send(embeds.stockDailyReportEmbed);
+            discordClient.channels.cache.get('850086242926198794').send(new Discord.MessageAttachment(stockAttachmentURI));
+            discordClient.channels.cache.get('850086242926198794').send(new Discord.MessageAttachment(sectorAttachmentURI));
+            console.log("stock job successful...");
+        } 
+        catch (e) {
+            console.log("Error stock scheduler:", e);
+        }
+    });
+    atlantisClubStockJob;
 }
