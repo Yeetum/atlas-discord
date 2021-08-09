@@ -11,6 +11,8 @@ module.exports = discordClient => {
     
     // define time UTC
     cryptoRule.hour = 17;
+
+    stockRule.dayOfWeek = new schedule.Range(1, 5);
     stockRule.hour = 0;
     stockRule.minute = 25;
 
