@@ -10,7 +10,8 @@ module.exports = discordClient => {
     const stockRule = new schedule.RecurrenceRule();
     
     // define time UTC
-    cryptoRule.hour = 17;
+    cryptoRule.hour = 22;
+    cryptoRule.minute = 20;
 
     stockRule.dayOfWeek = new schedule.Range(1, 5);
     stockRule.hour = 0;
