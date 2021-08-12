@@ -34,10 +34,8 @@ module.exports = discordClient => {
     let atlantisClubStockJob = schedule.scheduleJob(stockRule, function(){
         try {
             let stockAttachmentURI = prepAttach.prepStockReportName('stocks');
-            let sectorAttachmentURI = prepAttach.prepStockReportName('sectors');
             discordClient.channels.cache.get('850086242926198794').send(embeds.stockDailyReportEmbed);
             discordClient.channels.cache.get('850086242926198794').send(new Discord.MessageAttachment(stockAttachmentURI));
-            discordClient.channels.cache.get('850086242926198794').send(new Discord.MessageAttachment(sectorAttachmentURI));
             console.log("stock job successful...");
         } 
         catch (e) {
