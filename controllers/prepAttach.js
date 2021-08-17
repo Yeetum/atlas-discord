@@ -89,7 +89,7 @@ function prepStockReportName(ReportType){
             // prints date in YYYY-MM-DD format
             let reportdate = year + "-" + month + "-" + date;
             if (ReportType == 'stocks'){
-                let REPORTFILE = 'fumstocks.'+ reportdate + '.signals' + '.txt';
+                let REPORTFILE = 'fumstocks.'+ reportdate + '.txt';
                 console.log("Returning stock report file for", reportdate);
                 let attachmentURI = buckets.fum_Reports  + REPORTFILE;
                 return attachmentURI;
@@ -104,7 +104,7 @@ function prepStockReportName(ReportType){
             let newDate = ("0" + (date_ob.getDate()-1)).slice(-2);
             let reportdate = year + "-" + month + "-" + newDate;
             if (ReportType == 'stocks') {
-                let REPORTFILE = 'fumstocks.'+ reportdate + '.signals' + '.txt';
+                let REPORTFILE = 'fumstocks.'+ reportdate + '.txt';
                 console.log("Returning stock report file for", reportdate);
                 let attachmentURI = buckets.fum_Reports  + REPORTFILE;
                 return attachmentURI;
