@@ -89,10 +89,10 @@ const helpEmbed = new Discord.MessageEmbed()
     .setDescription('Useful Commands')
     .setThumbnail(yeetumPNG)
     .addFields(
-		{ name: 'Crypto Signals Report', value: '?yeet crypto', inline: true },
-		{ name: 'Stocks Signals Report', value: '?yeet stocks', inline: true },
-        { name: 'Stocks Sectors Report', value: '?yeet sectors', inline: true },
-        { name: 'Help', value: '?yeet help', inline: true }
+		{ name: 'Crypto Signals Report', value: '?atlas crypto', inline: true },
+		{ name: 'Stocks Signals Report', value: '?atlas stocks', inline: true },
+        { name: 'Stocks Sectors Report', value: '?atlas sectors', inline: true },
+        { name: 'Help', value: '?atlas help', inline: true }
 	)
     .setTimestamp(new Date())
     .setFooter('Disclaimer: ' + disclaimer, footerImage)
