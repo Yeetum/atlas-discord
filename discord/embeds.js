@@ -91,7 +91,6 @@ const helpEmbed = new Discord.MessageEmbed()
     .addFields(
 		{ name: 'Crypto Signals Report', value: '?atlas crypto', inline: true },
 		{ name: 'Stocks Signals Report', value: '?atlas stocks', inline: true },
-        { name: 'Stocks Sectors Report', value: '?atlas sectors', inline: true },
         { name: 'Help', value: '?atlas help', inline: true }
 	)
     .setTimestamp(new Date())
