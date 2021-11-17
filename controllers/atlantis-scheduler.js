@@ -13,7 +13,7 @@ module.exports = discordClient => {
     cryptoRule.hour = 22;
     cryptoRule.minute = 20;
 
-    stockRule.dayOfWeek = new schedule.Range(1, 5);
+    stockRule.dayOfWeek = new schedule.Range(2, 5);
     stockRule.hour = 0;
     stockRule.minute = 25;
 
