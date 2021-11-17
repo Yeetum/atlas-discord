@@ -14,7 +14,7 @@ module.exports = discordClient => {
     cryptoRule.minute = 20;
 
     stockRule.dayOfWeek = new schedule.Range(2, 5);
-    stockRule.hour = 0;
+    stockRule.hour = 1;
     stockRule.minute = 25;
 
     console.log("atlas-scheduler activated...");
