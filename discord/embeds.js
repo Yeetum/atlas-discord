@@ -71,7 +71,7 @@ const stockDailyReportEmbed = new Discord.MessageEmbed()
     .setFooter(footer, footerImage)
     .setImage(aiPng);
 
-const atlantisClubEmbed = new Discord.MessageEmbed()
+const edenClubEmbed = new Discord.MessageEmbed()
 .setColor('#0099ff')
 .setTitle('Join the Eden Club')
 .setURL('https://yeetum.com/edenclub')

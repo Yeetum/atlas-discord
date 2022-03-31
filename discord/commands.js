@@ -36,8 +36,8 @@ module.exports = discordClient =>{
             let attachmentURI = prepAttach.prepStockReportName('sectors');
             message.channel.send(new Discord.MessageAttachment(attachmentURI));
             console.log(`Sector Report triggred by ${message.author.username}...`);
-        } else if (message.content === `${PREFIX} atlantis`) {
-            message.channel.send(embeds.atlantisClubEmbed);
+        } else if (message.content === `${PREFIX} eden`) {
+            message.channel.send(embeds.edenClubEmbed);
         } else if (message.content === `${PREFIX} server`) {
             message.channel.send(`Server name: ${message.guild.name}\nTotal Yeeters: ${message.guild.memberCount}`);
         } else if (message.content === `${PREFIX} user`) {
